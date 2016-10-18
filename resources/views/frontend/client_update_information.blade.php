@@ -518,7 +518,7 @@
                        $('#progress_bar_text').html( strenght+"%");
                       console.log("zero"+strenght);
                     }
-                    else if (password.length>0 && password.length<12) {
+                    else if (password.length>0 && password.length<6) {
                        strenght=10;
                        $('#progress_bar').removeClass();
                        $('#progress_bar').addClass('progress-bar progress-bar-danger');
@@ -526,7 +526,7 @@
                        $('#progress_bar_text').html( strenght+"% Week");
                       console.log("weak"+strenght);
                     }
-                    else if (password.length>=12) {
+                    else if (password.length>=6) {
                       strenght=50;
                       $('#progress_bar').removeClass();
                        $('#progress_bar').addClass('progress-bar progress-bar-warning');

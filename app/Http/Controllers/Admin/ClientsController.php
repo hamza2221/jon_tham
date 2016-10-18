@@ -147,7 +147,7 @@ class ClientsController extends Controller
      */
     public function edit($id)
     {
-        $clients=User::where("id",$id)->get();
+        $clients=User::where("id",$id)->first();
         $countries=Country::all();
         return view("admin.clients.edit",['clients'=> $clients,
                                         'countries'=>$countries]);
@@ -254,7 +254,7 @@ class ClientsController extends Controller
                         ->where('c.client_id','like',"%$request->client_id%")
                         ->where('u.email','like',"%$request->email%")
                         ->where('u.company','like',"%$request->company%")
-                        ->whereDate('u.created_at','like',"%$request->created_date%")
+                        ->whereDate("date(created_at) = ?","%$request->created_date%")
                         ->where('u.account_type','like',"%$request->account_type%")
                         ->where('u.role',"=","Client")
                         ->join('clients as c','c.user_id','=','u.id')

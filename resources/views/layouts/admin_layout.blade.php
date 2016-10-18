@@ -43,6 +43,10 @@
 </head>
 <body>
 <div>
+<?php $pic=url('').'/resources/assets/admin/images/profile/image_hock.jpg';
+if($user->profile_pic!=''){
+    $pic=$user->profile_pic;
+  } ?>
 <!--BEGIN TO TOP--><a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP-->
   <div id="wrapper"><!--BEGIN TOPBAR-->
         <nav id="topbar" role="navigation" style="margin-bottom: 0;" class="navbar navbar-default navbar-static-top">
@@ -59,7 +63,7 @@
                 </form>
                 <ul class="nav navbar-top-links navbar-right">
                     <li><a data-toggle="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-shopping-cart fa-fw"></i><span class="badge badge-blue">3</span></a></li> 
-                    <li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><img src="{{url('').'/resources/assets/admin/'}}images/profile/image_hock.jpg" alt="" class="img-responsive img-circle"/>&nbsp;
+                    <li class="dropdown"><a data-toggle="dropdown" href="#" id="profile_pic_dd" class="dropdown-toggle"><img src="{{$pic}}" alt="" class="img-responsive img-circle"/>&nbsp;
                         {{$user->first_name." ".$user->last_name}}
                         &nbsp;<span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-user pull-right animated bounceInLeft">
@@ -68,7 +72,7 @@
                                     <div class="row">
                                         <div class="col-md-5 col-xs-5">
                                         
-                                        <img src="{{url('').'/resources/assets/admin/'}}images/profile/image_hock.jpg" alt="" class="img-responsive img-circle"/>
+                                        <img src="{{$pic}}" id="profile_pic_ee" alt="" class="img-responsive img-circle"/>
 
                                             <p class="text-center mtm">
                                             	<a href="#" data-target="#modal-change-avatar" data-toggle="modal" class="change-avatar">
@@ -111,15 +115,27 @@
                                   </div>
                                   <div class="modal-body">
                                     <div class="form">
-                                        
+                                        <div id="admin_profile_pic_err" hidden="" class="alert alert-danger alert-dismissable">
+                                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">&times;</button>
+                                            <i class="fa fa-times-circle"></i> <strong>Error!</strong>
+                                            <div id="admin_profile_pic_err_text"></div>
+                                          </div>
+                                          <div id="admin_profile_pic_success" hidden="" class="alert alert-success alert-dismissable">
+                                                <button type="button" data-dismiss="alert" aria-hidden="true" class="close">&times;</button>
+                                                    <i class="fa fa-check-circle"></i> <strong>Success!</strong>
+                                                    <div id="admin_profile_pic_success_text"></div>
+                                        </div>
                                         <div class="form-group">
                                           <label class="col-md-4 control-label">Upload Avatar Image </label>
+                                          
                                           <div class="col-md-8">
                                           <form id="frm_change_pic">
-                                            {{csrf_field()}}
+                                            
                                             <input type="hidden" value="{{$user->id}}" name="id">
+                                            <input type="hidden" class="csrf"  name="_token">
                                             <div class="text-15px margin-top-10px"> 
-                                            	<img src="{{url('').'/resources/assets/admin/'}}images/profile/image_hock.jpg" alt="Avatar" class="img-responsive"><br/>
+                                            	<img id="profile_pic_popup" width="100px" 
+                                              src="{{$pic}}" alt="Avatar" class="img-responsive"><br/>
                                                 <input id="browse_image" name="image_file" type="file"/>
                                               <br/>
                                                 <span class="help-block">(Image dimension: 100 x 100 pixels, JPEG/GIF/PNG only, Max. 2MB) </span>
@@ -168,7 +184,7 @@
 
                                             <div class="col-md-8">
                                             	<div class="input-icon"><i class="fa fa-key"></i> <input id="password" name="password" type="password" placeholder="New Password" class="form-control"/>
-                                              <p class="dark">Password must be at least 12 characters. The combination of the password must be alphanumeric with one special character <span class="sitecolor">(eg. ! @ # $ % ^ & * ( ) _ + { } | : < > ? " \ [ ] ' ; / . ~ `)</span></p>
+                                              <p class="dark">Password must be at least 6-12 characters. The combination of the password must be alphanumeric with one special character <span class="sitecolor">(eg. ! @ # $ % ^ & * ( ) _ + { } | : < > ? " \ [ ] ' ; / . ~ `)</span></p>
                                               <div class="red_error" id="err_new_password"></div>                                                </div>
                                             </div>
 
@@ -305,6 +321,7 @@
         <!--END PAGE HEADER & BREADCRUMB--><!--BEGIN CONTENT-->
         
           <!-- page content here -->
+
            @yield('content')
            
         <!--END CONTENT-->
@@ -402,14 +419,49 @@
   });
   
   $(document).on('click', '#submit_frm_change_pic', function(event) {
-    
+    $('#admin_profile_pic_err').hide();
+    $('#admin_profile_pic_err_text').html('')
+    $('#admin_profile_pic_success').hide();
+    $('#admin_profile_pic_success_text').html('')
     $('#frm_change_pic').submit();
     
 
 
   });
   $(document).on('submit', '#frm_change_pic', function(event) {
-    alert("in");
+     event.preventDefault(); 
+     $('.csrf').val(csrf_token);
+     console.log(csrf_token);
+      var file_data = $('input[name=image_file]')[0].files[0];
+      console.log(file_data);  // Getting the properties of file from file field
+      var form_data = new FormData();                  // Creating object of FormData class
+      form_data.append("image_file", file_data)              // Appending parameter named file with properties of file_field to form_data
+      form_data.append("id", '{{$user->id}}') 
+      form_data.append("_token", csrf_token) 
+      $.ajax({
+        url: base_url+'/profile_pic_update',
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        data: form_data,
+      })
+      .done(function(response) {
+        $('#admin_profile_pic_success').show();
+        $('#admin_profile_pic_success_text').html('<p>profile pic is updated!</p>');
+        $('#profile_pic_popup').attr('src',response);
+        $('#profile_pic_ee').attr('src',response);
+        $('#profile_pic_dd').attr('src',response);
+        $('input[name=image_file]').val('');
+
+      })
+      .fail(function(response) {
+        console.log(response);
+        $('#admin_profile_pic_err').show();
+        $('#admin_profile_pic_err_text').html('<p>'+response.responseJSON.image_file+'</p>')
+      })
+      .always(function() {
+        console.log("complete");
+      });
       
   });
 
@@ -463,7 +515,7 @@
                        $('#progress_bar_text').html( strenght+"%");
                       console.log("zero"+strenght);
                     }
-                    else if (password.length>0 && password.length<12) {
+                    else if (password.length>0 && password.length<6) {
                        strenght=10;
                        $('#progress_bar').removeClass();
                        $('#progress_bar').addClass('progress-bar progress-bar-danger');
@@ -471,7 +523,7 @@
                        $('#progress_bar_text').html( strenght+"% Week");
                       console.log("weak"+strenght);
                     }
-                    else if (password.length>=12) {
+                    else if (password.length>=6) {
                       strenght=50;
                       $('#progress_bar').removeClass();
                        $('#progress_bar').addClass('progress-bar progress-bar-warning');

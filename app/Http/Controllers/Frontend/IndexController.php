@@ -86,7 +86,7 @@ class IndexController extends Controller
                 'phone_number'=>'numeric',
                 'company'=>'required_if:account_type,Business Account|max:250',
                 'email' => 'required|email|max:255|unique:users',
-                'password' => 'required|confirmed|min:12',
+                'password' => 'required|confirmed|min:6',
                 'terms_and_conditions' => 'required',
 
                 
@@ -206,17 +206,21 @@ class IndexController extends Controller
     }
     public function change_profile_pic(Request $req)
     {
-        return $req->all();;
-        $id=input::get('id');
+        $this->validate($req,array(
+                
+                'image_file'=>'required|max:2000|mimes:jpeg,bmp,png',
+        ));
         $image=input::file('image_file');
-
-        $path=url('/storage/profiles')."/".$id.'/';
+        //return $req->all();
+        $id=input::get('id');
         Storage::disk('profiles')->makeDirectory($id,777, true);
-        $image=input::file('picture');
         $filename  = time() . '.' . $image->getClientOriginalExtension();
-        $full_path=$path.$filename;
-        
         $move=Storage::disk('profiles')->put($id."/".$filename, file_get_contents($image));
+        $user=User::find($id);
+        $user->profile_pic=url("/storage/profiles/$id/$filename");
+        if ($user->save()) {
+            return Response(url("/storage/profiles/$id/$filename"),200);
+        }
     }
     public function client_reset_password()
     {

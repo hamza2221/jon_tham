@@ -77,16 +77,16 @@
                                 <div class="form-group">
                                 <label for="inputFirstName" class="col-md-3 control-label">First Name <span class="text-red">*</span></label>
                                 <div class="col-md-6">
-                                  <input type="text" name="first_name" id="first_name" class="form-control" placeholder="">
+                                  <input type="text" value="{{$clients->first_name}}" name="first_name" id="first_name" class="form-control" placeholder="">
                                   <div class="red_error" id="err_fname"></div>
                                 </div>
                                 
                               </div>
                               <div class="clearfix"></div>
                               <div class="form-group">
-                                <label for="inputFirstName" class="col-md-4 control-label">Last Name <span class="text-red">*</span></label>
+                                <label for="inputFirstName" class="col-md-3 control-label">Last Name <span class="text-red">*</span></label>
                                 <div class="col-md-6">
-                                  <input type="text" name="last_name" id="last_name" class="form-control" placeholder="">
+                                  <input value="{{$clients->last_name}}"  type="text" name="last_name" id="last_name" class="form-control" placeholder="">
                                   <div class="red_error" id="err_lname"></div>
                                 </div>
                               </div>
@@ -94,16 +94,16 @@
                               <div class="form-group">
                                 <label for="inputFirstName" class="col-md-3 control-label">Company <span class="text-red">* </span></label>
                                 <div class="col-md-6">
-                                  <input name="company" id="company" type="text" class="form-control" placeholder="">
+                                  <input name="company" value="{{$clients->company}}"  id="company" type="text" class="form-control" placeholder="">
                                   <div class="text-11px text-red">(* Mandatory for Business Account)</div>
                                   <div class="red_error" id="err_company"></div>
                                 </div>
                               </div>
                               <div class="clearfix"></div>
                               <div class="form-group">
-                                <label for="inputFirstName" class="col-md-3 control-label">Email <span class="text-red">*</span></label>
+                                <label for="inputFirstName"   class="col-md-3 control-label">Email <span class="text-red">*</span></label>
                                 <div class="col-md-6">
-                                  <input type="text" name="email" id="email" class="form-control">
+                                  <input type="text"  value="{{$clients->email}}" name="email" id="email" class="form-control">
                                   <div class="red_error" id="err_emailc"></div>
                                 </div>
                               </div>
@@ -144,30 +144,30 @@
                                 </div>
                               </div>
                               <div class="form-group">
-                                <label for="inputFirstName" class="col-md-3 control-label">Phone <span class="text-red">*</span></label>
+                                <label for="inputFirstName"  class="col-md-3 control-label">Phone <span class="text-red">*</span></label>
                                 <div class="col-md-6">
-                                  <input type="text" name="phone_number" id="phone" class="form-control">
+                                  <input value="{{$clients->phone_number}}" type="text" name="phone_number" id="phone" class="form-control">
                                   <div class="red_error" id="err_phone"></div> 
                                 </div>
                               </div>
                               <div class="form-group">
                                 <label for="inputFirstName" class="col-md-3 control-label">Mobile Phone <span class="text-red">*</span></label>
                                 <div class="col-md-6">
-                                  <input name="mobile_phone_number" id="mobile_phone" type="text" class="form-control">
+                                  <input value="{{$clients->mobile_number}}"  name="mobile_phone_number" id="mobile_phone" type="text" class="form-control">
                                   <div class="red_error" id="err_mphone"></div> 
                                 </div>
                               </div>
                               <div class="form-group">
                                 <label for="inputFirstName" class="col-md-3 control-label">Address <span class="text-red">* </span></label>
                                 <div class="col-md-6">
-                                  <input name="address_1" id="address_1" type="text" class="form-control">
+                                  <input value="{{$clients->address1}}" name="address_1" id="address_1" type="text" class="form-control">
                                   <div class="red_error" id="err_add1"></div> 
                                 </div>
                               </div>
                               <div class="form-group">
                                 <label for="inputFirstName" class="col-md-3 control-label">Address 2 </label>
                                 <div class="col-md-6">
-                                  <input name="address_2" id="address_2" type="text" class="form-control">
+                                  <input value="{{$clients->address2}}"  name="address_2" id="address_2" type="text" class="form-control">
                                   <div class="red_error" id="err_add2"></div> 
                                 </div>
                               </div>
@@ -175,7 +175,7 @@
                               <div class="form-group">
                                 <label for="inputFirstName" class="col-md-3 control-label">Postal Code <span class="text-red">* </span></label>
                                 <div class="col-md-6">
-                                  <input name="postal_code" id="postal_code" type="text" class="form-control">
+                                  <input value="{{$clients->postal_code}}"  name="postal_code" id="postal_code" type="text" class="form-control">
 
                                   <div class="red_error" id="err_pcode"></div> 
                                 </div>
@@ -187,7 +187,7 @@
                                   <select name="country" class="form-control countries" id="country">
                                     <option value=''>-- Please select --</option>
                                     @foreach($countries as $country)
-                                    <option value="{{$country->id}}">{{$country->name}}</option>
+                                    <option value="{{$country->id}}" @if($clients->country_id==$country->id) selected @endif>{{$country->name}}</option>
                                     @endforeach
                                     </select>
                                     <div class="red_error" id="err_country"></div> 
@@ -216,7 +216,7 @@
                                 <label class="col-md-3 control-label">Newsletter Subscription</label>
                                 <div class="col-md-6">
                                   <div class="margin-top-10px">
-                                    <input type="checkbox" name="news_letter" checked="checked">
+                                    <input type="checkbox" name="news_letter" @if($clients->news_letter==1) checked @endif>
                                     Yes! I would like to subscribe to your newsletter. </div>
                                 </div>
                               </div>
@@ -239,70 +239,77 @@
           
                         </div><!-- end porlet header -->
                            
-                        <div class="md-margin clearfix"></div>
-                              <h5 class="block-heading">Billing Address</h5>
-                              <div class="form-group">
-                                <label class="col-md-4 control-label"></label>
-                                <div class="col-md-6">
-                                  <input type="checkbox" id="same_details" >
-                                  My Billing address is the same as account information above. </div>
-                              </div>
-                              <div class="clearfix"></div>
-                              <div class="form-group">
-                                <label for="inputFirstName" class="col-md-4 control-label">First Name</label>
-                                <div class="col-md-6">
-                                  <input type="text" name="billing_first_name" id="billing_first_name" class="form-control" placeholder="">
-                                </div>
+                        <div class="portlet-body">
+                          <div class="row">
+                            <div class="col-lg-12">           
 
-                              </div>
-                              <div class="clearfix"></div>
-                              <div class="form-group">
-                                <label for="inputFirstName" class="col-md-4 control-label">Last Name</label>
-                                <div class="col-md-6">
-                                  <input type="text" name="billing_last_name" id="billing_last_name" class="form-control" placeholder="">
+                                <!-- billing address start -->                                
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"></label>
+                                        <div class="col-md-6">
+                                          <input type="checkbox" id="same_details">
+                                          My Billing address is the same as account information above. </div>
+                                      </div>
+                                      <div class="clearfix"></div>
+                                      note to programmer: when unchecked the above, please let the below form become editable.
+                                
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">First Name</label>
+                                        <div class="col-md-6">
+                                          <input type="text" name="billing_first_name" id="billing_first_name" class="form-control" placeholder="">
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-md-3 control-label">Last Name</label>
+                                          <div class="col-md-6">
+                                              <input type="text" name="billing_last_name" id="billing_last_name" class="form-control" placeholder="">
+                                          </div>
+                                      </div>
+                                      <div class="clearfix"></div>
+                                      <div class="form-group">
+                                         <label class="col-md-3 control-label">Company </label>
+                                         <div class="col-md-6">
+                                            <input type="text" name="billing_company" id="billing_company" class="form-control" placeholder="">
+                                      </div>
+                                      </div>
+                                      <div class="form-group">
+                                         <label class="col-md-3 control-label">Email </label>
+                                         <div class="col-md-6">
+                                            <input type="text" name="billing_email" id="billing_email" class="form-control">
                                 </div>
-                              </div>
-                              <div class="clearfix"></div>
-                              <div class="form-group">
-                                <label for="inputFirstName" class="col-md-4 control-label">Company</label>
-                                <div class="col-md-6">
-                                  <input type="text" name="billing_company" id="billing_company" class="form-control" placeholder="">
+                                      </div>
+                                      <div class="form-group">
+                                         <label class="col-md-3 control-label">Phone </label>
+                                         <div class="col-md-6">
+                                            <input type="text" name="billing_phone_number" id="billing_phone_number" class="form-control">
                                 </div>
-                              </div>
-                              <div class="clearfix"></div>
-                              <div class="form-group">
-                                <label for="inputFirstName" class="col-md-4 control-label">Email </label>
-                                <div class="col-md-6">
-                                  <input type="text" name="billing_email" id="billing_email" class="form-control">
+                                       </div>
+                                       <div class="form-group">
+                                          <label class="col-md-3 control-label">Mobile Phone </label>
+                                          <div class="col-md-6">
+                                             <input name="billing_mobile_phone" id="billing_mobile_phone" type="text" class="form-control">
                                 </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="inputFirstName" class="col-md-4 control-label">Phone </label>
-                                <div class="col-md-6">
-                                  <input type="text" name="billing_phone_number" id="billing_phone_number" class="form-control">
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="col-md-3 control-label">Address <span class="text-red">* </span></label>
+                                        <div class="col-md-6">
+                                          <input name="billing_address_1" id="billing_address_1" type="text" class="form-control">
+                                
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="col-md-3 control-label">Address2 </label>
+                                    <div class="col-md-6">
+                                      <input type="text" name="billing_address_2" id="billing_address_2" class="form-control">
                                 </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="inputFirstName" class="col-md-4 control-label">Mobile Phone </label>
-                                <div class="col-md-6">
-                                  <input name="billing_mobile_phone" id="billing_mobile_phone" type="text" class="form-control">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="inputFirstName" class="col-md-4 control-label">Address 1</label>
-                                <div class="col-md-6">
-                                  <input name="billing_address_1" id="billing_address_1" type="text" class="form-control">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="inputFirstName" class="col-md-4 control-label">Address2 </label>
-                                <div class="col-md-6">
-                                  <input type="text" name="billing_address_2" id="billing_address_2" class="form-control">
-                                </div>
-                              </div>
-                              
-                              <div class="form-group">
-                                <label for="inputFirstName" class="col-md-4 control-label">Country</label>
+                                  </div>
+
+                                  
+
+
+                                  <div class="form-group">
+                                <label for="inputFirstName" class="col-md-3 control-label">Country</label>
                                 <div class="col-md-6">
                                   <select name="billing_country" id="billing_country" class="form-control">
                                     <option>-- Please select --</option>
@@ -314,7 +321,7 @@
                                 </div>
                               </div>
                               <div class="form-group">
-                                <label for="inputFirstName"  class="col-md-4 control-label">State</label>
+                                <label for="inputFirstName"  class="col-md-3 control-label">State</label>
                                 <div class="col-md-6">
                                   <select name="billing_state" id="billing_state" class="form-control">
                                     <option>-- Please select --</option>
@@ -324,7 +331,7 @@
                                 </div>
                               </div>
                               <div class="form-group">
-                                <label for="inputFirstName" class="col-md-4 control-label">City</label>
+                                <label for="inputFirstName" class="col-md-3 control-label">City</label>
                                 <div class="col-md-6">
                                   <select name="billing_city" id="billing_city" class="form-control">
                                     <option>-- Please select --</option>
@@ -334,20 +341,160 @@
                                 </div>
                               </div>
                               <div class="form-group">
-                                <label for="inputFirstName" class="col-md-4 control-label">Postal Code</label>
+                                <label for="inputFirstName" class="col-md-3 control-label">Postal Code</label>
                                 <div class="col-md-6">
                                   <input name="billing_postal_code" id="billing_postal_code" type="text" class="form-control">
                                 </div>
                               </div>
-                              <div class="form-actions">
-                                <div class="col-md-offset-5 col-md-8"> <a href="javascript:void(0)" id="save_client" class="btn btn-red">Save &nbsp;<i class="fa fa-floppy-o"></i></a>&nbsp; <a href="#" data-dismiss="modal" class="btn btn-green">Cancel &nbsp;<i class="glyphicon glyphicon-ban-circle"></i></a> </div>
-                              </div>
-                              {{csrf_field()}}
-                              <input type="hidden" id="strength_client_pass" value="0" name="strength">
-                            
+                                </form>
+                                <div class="clearfix"></div>
+                                <!-- end billing address -->
+
+                            </div>
+                            <!-- end col-lg-12 -->
+ 
+                          </div>
+                          <!-- end row -->
+  
+                       </div>
                        <!-- end porlet-body -->
                           
                           
+                       <div class="clearfix"></div>
+                       
+                       <div class="form-actions text-center"> 
+                            <a href="#preview in browser/not yet published" class="btn btn-red">Save &nbsp;<i class="fa fa-floppy-o"></i></a>&nbsp; <a href="#" class="btn btn-green">Cancel &nbsp;<i class="glyphicon glyphicon-ban-circle"></i></a>
+                       </div>
+                                
+                  </div>
+                  <!-- End porlet -->
+                  
+                  
+                </div>
+                <!-- end tab overview -->
+                
+                <div id="past-orders" class="tab-pane fade">
+                  <div class="portlet">
+                        
+                        <div class="portlet-body">
+  
+                          <div class="table-responsive mtl">
+                                <table class="table table-hover table-striped">
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th><a href="#sort by invoice #">Invoice #</a></th>
+                                    <th><a href="#sort by receipt #">Receipt #</a></th>
+                                    <th><a href="#sort by order date">Order Date</a></th>   
+                                    <th><a href="#sort by total">Total</a></th>
+                                    <th><a href="#sort by payment">Payment</a></th>
+                                    <th><a href="#sort by status">Status</a></th>
+                                    <th>Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody> 
+                                  <tr>
+                                    <td>2</td>
+                                    <td><a href="billing_invoice_edit.html">MY-8001182</a></td>
+                                    <td>-</td>
+                                    <td>16th Apr 2015</td>
+                                    <td>RM 25,195.14</td>
+                                    <td>PayPal</td>
+                                    <td><span class="label label-xs label-danger">Payment Failed</span></td>
+                                    <td><a href="billing_invoice_edit.html" data-hover="tooltip" data-placement="top" title="View Details"><span class="label label-sm label-yellow"><i class="fa fa-search"></i></span></a> <a href="#" data-hover="tooltip" data-placement="top" title="Delete" data-target="#modal-delete-1" data-toggle="modal"><span class="label label-sm label-red"><i class="fa fa-trash-o"></i></span></a>                             
+                                    
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>1</td>
+                                    <td><a href="billing_invoice_edit.html">MY-7974188</a></td>
+                                    <td><a href="billing_receipt_edit.html">1431979860</a></td>
+                                    <td>16th Apr 2015</td>
+                                    <td>RM 25,195.14</td>
+                                    <td>PayPal</td>
+                                    <td><span class="label label-xs label-success">Paid</span></td>
+                                    <td><a href="billing_invoice_edit.html" data-hover="tooltip" data-placement="top" title="View Details"><span class="label label-sm label-yellow"><i class="fa fa-search"></i></span></a> <a href="#" data-hover="tooltip" data-placement="top" title="Delete" data-target="#modal-delete-1" data-toggle="modal"><span class="label label-sm label-red"><i class="fa fa-trash-o"></i></span></a>                             <!--Modal delete start-->
+                                        <div id="modal-delete-1" tabindex="-1" role="dialog" aria-labelledby="modal-login-label" aria-hidden="true" class="modal fade">
+                                          <div class="modal-dialog">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                                                <h4 id="modal-login-label3" class="modal-title"><a href=""><i class="fa fa-exclamation-triangle"></i></a> Are you sure you want to delete this order? </h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                <p><strong>#1:</strong> Invoice #: MY-7974188</p>
+                                                <div class="form-actions">
+                                                  <div class="col-md-offset-4 col-md-8"> <a href="#" class="btn btn-red">Yes &nbsp;<i class="fa fa-check"></i></a>&nbsp; <a href="#" data-dismiss="modal" class="btn btn-green">No &nbsp;<i class="fa fa-times-circle"></i></a> </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                      </div>
+                                      <!-- modal delete end -->     
+                                    </td>
+                                  </tr>
+                                 
+                                </tbody>
+                                <tfoot>
+                                  <tr>
+                                    <td colspan="9"></td>
+                                  </tr>
+                                </tfoot>
+                              </table>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6 col-md-offset-6">
+                                            <div class="well">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <i class="glyphicon glyphicon-shopping-cart fa-4x"></i>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="row text-right">
+                                                            <div class="col-md-7">
+                                                                 <span class="red-title">Total Amount Orders:</span>
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                 <h5 class="red-title"><strong>RM 52,813.08</strong></h5>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="row text-right">
+                                                            <div class="col-md-7">
+                                                                 <span class="red-title light">Total Paid:</span>
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                 <h5 class="red-title"><strong>RM 25,195.14</strong></h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>   
+                                            </div>
+                                        </div>
+                                    </div>
+                              </div>
+                              <!-- end row -->
+                              
+                              <div class="tool-footer text-right">
+                                  <p class="pull-left">Showing 1 to 10 of 57 entries</p>
+                                  <ul class="pagination pagination mtm mbm">
+                                    <li class="disabled"><a href="#">&laquo;</a></li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">&raquo;</a></li>
+                                  </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                              
+                              
+                              <div class="clearfix"></div>
+                            </div>
+                          
+                            <div class="clearfix"></div>
+                        </div>
                        <div class="clearfix"></div>
                        
                        <div class="form-actions text-center"> 
@@ -1076,4 +1223,281 @@
           </div>
           <!-- end row -->
         </div>
+        @endsection
+
+        @section('custom_scripts')
+          <script type="text/javascript">
+            function load_countries(){
+            var country_id=$( "#country option:selected" ).val();
+                    $("#state").html("<option value=''>-- Please select --</option>");
+                    $("#city").html("<option value=''>-- Please select --</option>");
+                    $.ajax({
+                        url: base_url+'/get_state/'+country_id,
+                        type: 'GET',
+                        dataType: ' json',
+                    })
+                    .done(function(response) {
+                        var state_selected="";
+                        for (var i=0; i < response.length; i++) {
+                            if (response[i].id=='{{$clients->state_id}}') {
+                                    $("#state").append(
+                                        $("<option>" , {
+                                            text: response[i].name,
+                                            value:  response[i].id,
+                                            selected:  ""
+                                        })
+                                    )
+                                }else{
+                                        $("#state").append(
+                                        $("<option>" , {
+                                            text: response[i].name,
+                                            value:  response[i].id,
+                                        })
+                                    )
+                                }
+                            
+                        }
+                        var state_id=$( "#state option:selected" ).val();
+                        $("#city").html("<option value=''>-- Please select --</option>");
+                        $.ajax({
+                            url: base_url+'/get_city/'+state_id,
+                            type: 'GET',
+                            dataType: ' json',
+                        })
+                        .done(function(response) {
+                            var city_selected="";
+                            for (var i=0; i < response.length; i++) {
+                                if (response[i].id=='{{$clients->city_id}}') {
+                                    $("#city").append(
+                                        $("<option>" , {
+                                            text: response[i].name,
+                                            value:  response[i].id,
+                                            selected:  ""
+                                        })
+                                    )
+                                }else{
+                                    $("#city").append(
+                                        $("<option>" , {
+                                            text: response[i].name,
+                                            value:  response[i].id,
+                                        })
+                                    )
+                                }
+
+                                
+                            }
+                        })
+                        .fail(function() {
+                        })
+                        .always(function() {
+                        });
+                    })
+                    .fail(function() {
+                    })
+                    .always(function() {
+                    });
+                    
+        }    
+        load_countries();
+        $(document).on('change', '#country', function(event) {
+                    var country_id=$( "#country option:selected" ).val();
+                    $("#state").html("<option value=''>-- Please select --</option>");
+                    $("#city").html("<option value=''>-- Please select --</option>");
+                    $.ajax({
+                        url: base_url+'/get_state/'+country_id,
+                        type: 'GET',
+                        dataType: ' json',
+                    })
+                    .done(function(response) {
+                        for (var i=0; i < response.length; i++) {
+                            $("#state").append(
+                                $("<option>" , {
+                                    text: response[i].name,
+                                    value:  response[i].id
+                                })
+                            )
+                        }
+                    })
+                    .fail(function() {
+                    })
+                    .always(function() {
+                    });
+                    
+                });
+                $(document).on('change', '#state', function(event) {
+                    var state_id=$( "#state option:selected" ).val();
+                    $("#city").html("<option value=''>-- Please select --</option>");
+                    $.ajax({
+                        url: base_url+'/get_city/'+state_id,
+                        type: 'GET',
+                        dataType: ' json',
+                    })
+                    .done(function(response) {
+                        for (var i=0; i < response.length; i++) {
+                            $("#city").append(
+                                $("<option>" , {
+                                    text: response[i].name,
+                                    value:  response[i].id
+                                })
+                            )
+                        }
+                    })
+                    .fail(function() {
+                    })
+                    .always(function() {
+                    });
+                    
+                });
+
+                /*country select for billing*/
+                $(document).on('change', '#billing_country', function(event) {
+                    var country_id=$( "#billing_country option:selected" ).val();
+                    $("#billing_state").html("<option value=''>-- Please select --</option>");
+                    $("#billing_city").html("<option value=''>-- Please select --</option>");
+                    $.ajax({
+                        url: base_url+'/get_state/'+country_id,
+                        type: 'GET',
+                        dataType: ' json',
+                    })
+                    .done(function(response) {
+                        for (var i=0; i < response.length; i++) {
+                            $("#billing_state").append(
+                                $("<option>" , {
+                                    text: response[i].name,
+                                    value:  response[i].id
+                                })
+                            )
+                        }
+                    })
+                    .fail(function() {
+                    })
+                    .always(function() {
+                    });
+                    
+                });
+                $(document).on('change', '#billing_state', function(event) {
+                    var state_id=$( "#billing_state option:selected" ).val();
+                    $("#billing_city").html("<option value=''>-- Please select --</option>");
+                    $.ajax({
+                        url: base_url+'/get_city/'+state_id,
+                        type: 'GET',
+                        dataType: ' json',
+                    })
+                    .done(function(response) {
+                        for (var i=0; i < response.length; i++) {
+                            $("#billing_city").append(
+                                $("<option>" , {
+                                    text: response[i].name,
+                                    value:  response[i].id
+                                })
+                            )
+                        }
+                    })
+                    .fail(function() {
+                    })
+                    .always(function() {
+                    });
+                    
+                });
+               $(document).on('change', '#same_details', function(event) {
+                  
+                    if ($('#same_details').is(':checked')) {
+                      load_billing_countries();
+                        $('#billing_first_name').val($('#first_name').val());
+                        $('#billing_last_name').val($('#last_name').val());
+                        $('#billing_company').val($('#company').val());
+                        $('#billing_email').val($('#email').val());
+                        $('#billing_phone_number').val($('#phone').val());
+                        $('#billing_mobile_phone').val($('#mobile_phone').val());
+                        $('#billing_address_1').val($('#address_1').val());
+                        $('#billing_address_2').val($('#address_2').val());
+                        $('#billing_postal_code').val($('#postal_code').val());
+
+                    }else{
+                        $('#billing_first_name').val("");
+                        $('#billing_last_name').val("");
+                        $('#billing_company').val("");
+                        $('#billing_email').val("");
+                        $('#billing_phone_number').val("");
+                        $('#billing_mobile_phone').val("");
+                        $('#billing_address_1').val("");
+                        $('#billing_address_2').val("");
+                        $('#billing_postal_code').val("");
+                    }
+                }); 
+
+                function load_billing_countries(){
+                    var country_id=$( "#country option:selected" ).val();
+                    var org_state_id=$( "#state option:selected" ).val();
+                    var org_city_id=$( "#city option:selected" ).val();
+                  $('#billing_country option[value="'+country_id+'"]').attr("selected", "selected");
+                    
+                    $("#billing_state").html("<option value=''>-- Please select --</option>");
+                    $("#billing_city").html("<option value=''>-- Please select --</option>");
+                    $.ajax({
+                        url: base_url+'/get_state/'+country_id,
+                        type: 'GET',
+                        dataType: ' json',
+                    })
+                    .done(function(response) {
+                        var state_selected="";
+                        for (var i=0; i < response.length; i++) {
+                            if (response[i].id==org_state_id) {
+                                    $("#billing_state").append(
+                                        $("<option>" , {
+                                            text: response[i].name,
+                                            value:  response[i].id,
+                                            selected:  ""
+                                        })
+                                    )
+                                }else{
+                                        $("#billing_state").append(
+                                        $("<option>" , {
+                                            text: response[i].name,
+                                            value:  response[i].id,
+                                        })
+                                    )
+                                }
+                            
+                        }
+                        var state_id=$( "#billing_state option:selected" ).val();
+                        $("#billing_city").html("<option value=''>-- Please select --</option>");
+                        $.ajax({
+                            url: base_url+'/get_city/'+org_state_id,
+                            type: 'GET',
+                            dataType: ' json',
+                        })
+                        .done(function(response) {
+                            var city_selected="";
+                            for (var i=0; i < response.length; i++) {
+                                if (response[i].id==org_city_id) {
+                                    $("#billing_city").append(
+                                        $("<option>" , {
+                                            text: response[i].name,
+                                            value:  response[i].id,
+                                            selected:  ""
+                                        })
+                                    )
+                                }else{
+                                    $("#billing_city").append(
+                                        $("<option>" , {
+                                            text: response[i].name,
+                                            value:  response[i].id,
+                                        })
+                                    )
+                                }
+
+                                
+                            }
+                        })
+                        .fail(function() {
+                        })
+                        .always(function() {
+                        });
+                    })
+                    .fail(function() {
+                    })
+                    .always(function() {
+                    });
+          </script>
         @endsection

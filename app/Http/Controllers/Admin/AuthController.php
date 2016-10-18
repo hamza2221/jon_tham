@@ -87,7 +87,7 @@ class AuthController extends Controller {
 	        
 
 	        $this->validate($request, array(
-	            'password' => 'required|confirmed|min:12',
+	            'password' => 'required|confirmed|min:6',
 	        ));
 	        if ($request->strength!=100) {
 	        	return Response(['password'=>array('New Password is not strong enough')],422);
@@ -128,7 +128,7 @@ class AuthController extends Controller {
 	        
 
 	        $this->validate($request, array(
-	            'password' => 'required|confirmed|min:12',
+	            'password' => 'required|confirmed|min:6',
 	        ));
 	        if ($request->strength!=100) {
 	        	return Response(['password'=>array('New Password is not strong enough')],422);
